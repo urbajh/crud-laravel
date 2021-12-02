@@ -20,8 +20,12 @@ Route::get('/home', function () {
 
 //Route::get('','UsuariosController@index');
 Route::get('', [UsuariosController::class, 'index']);
+Route::post('/usuario', [UsuariosController::class, 'store']);
 Route::get('/usuario/add', [UsuariosController::class, 'create']);
 Route::get('/usuario/{id}', [UsuariosController::class, 'show']);
+Route::put('/usuario/{id}', [UsuariosController::class, 'update']);
+Route::delete('/usuario/{id}', [UsuariosController::class, 'destroy']);
+Route::get('/usuario/{id}/edit', [UsuariosController::class, 'edit']);
 
 
 

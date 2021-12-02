@@ -36,7 +36,21 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this -> validate($request, [
+            'nombre' => 'required',
+            'email' => 'required',
+            'telefono' => 'required'
+
+        ]);
+
+        //create user
+        $usuario = new Usuario;
+        $usuario -> nombre = $request ->input('nombre');
+        $usuario -> email = $request ->input('email');
+        $usuario -> telefono = $request ->input('telefono');
+
+        $usuario -> save();
+        return redirect('/')->with('success','Usuario Agregado con éxito');
     }
 
     /**
@@ -47,9 +61,10 @@ class UsuariosController extends Controller
      */
     public function show($id)
     {
-        $usuario = Usuario::where('id', 1)->get();
+        //$usuario = Usuario::where('id', 1)->get();
+        $usuario = Usuario::find($id);
         //var_dump($usuario);
-        return view('usuarios.show')->with('usuario', $usuario[0]);
+        return view('usuarios.show')->with('usuario', $usuario);
     }
 
     /**
@@ -60,7 +75,8 @@ class UsuariosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $usuario = Usuario::find($id);
+        return view('usuarios.edit')->with('usuario',$usuario);
     }
 
     /**
@@ -72,7 +88,20 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required',
+            'email' => 'required',
+            'telefono' => 'required'
+        ]);
+
+        //update user
+        $usuario = Usuario::find($id);
+        $usuario -> nombre = $request ->input('nombre');
+        $usuario -> email = $request ->input('email');
+        $usuario -> telefono = $request ->input('telefono');
+
+        $usuario -> save();
+        return redirect('/')->with('success','Usuario Editado con éxito');
     }
 
     /**
@@ -83,6 +112,9 @@ class UsuariosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $usuario = Usuario::find($id);
+        $usuario->delete();
+
+        return redirect('/')->with('success','Usuario eliminado con exito');
     }
 }

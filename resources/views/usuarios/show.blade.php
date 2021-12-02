@@ -11,7 +11,15 @@
                     <li>Fecha de creacion: {{$usuario->created_at}}</li>
                 </ul>
             </div>
-            <button class='btn btn-warning w-50 border border-dark'>Editar</button>
+            <div class='d-flex justify-content-around'>
+                <a  href='/usuario/{{$usuario->id}}/edit'>
+                    <button class='btn btn-warning btn-lg border border-dark'>Editar</button>
+                    
+                </a>
+                {!! Form::open(['url' => ['/usuario' , $usuario->id], 'method' => 'DELETE']) !!}
+                {{Form::bsSubmit('Eliminar',['class' => 'btn btn-danger btn-lg float-right border-dark '])}}
+                {!! Form::close() !!}
+            </div>
         </div>
 
 @endsection
